@@ -1,0 +1,2 @@
+drop policy if exists "Admins can update opening hours" on public.opening_hours;
+create policy "Admins can update opening hours" on public.opening_hours for update to authenticated using (exists (select 1 from public.admin_users where user_id = auth.uid() and role in ('owner', 'admin'))) with check (exists (select 1 from public.admin_users where user_id = auth.uid() and role in ('owner', 'admin')));
