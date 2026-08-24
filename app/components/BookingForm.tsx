@@ -7,11 +7,11 @@ import { supabase } from "../../lib/supabaseClient";
 type Service = { id: string; name: string; durationMinutes: number; startingPrice: number | null; };
 type OpeningHour = { dayOfWeek: number; isOpen: boolean; openTime: string; closeTime: string; breakStart: string | null; breakEnd: string | null; };
 type BusySlot = { startTime: string; endTime: string; };
-type BlockedPeriod = { id: string; startDate: string; endDate: string; reason: string | null; };
+type BlockedPeriod = { id: string; startDate: string; endDate: string; startTime: string | null; endTime: string | null; reason: string | null; };
 
 function getEndTime(startTime: string, durationMinutes: number) { const [hours, minutes] = startTime.split(":").map(Number); const end = new Date(2000, 0, 1, hours, minutes + durationMinutes); return `${String(end.getHours()).padStart(2, "0")}:${String(end.getMinutes()).padStart(2, "0")}`; }
 function getMinutes(time: string) { const [hours, minutes] = time.split(":").map(Number); return hours * 60 + minutes; }
-function getTimeOptions(openTime: string, closeTime: string, breakStart: string | null, breakEnd: string | null, durationMinutes: number, busySlots: BusySlot[]) { const options: string[] = []; for (let minutes = getMinutes(openTime); minutes + durationMinutes <= getMinutes(closeTime); minutes += 30) { const start = `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`; const end = getEndTime(start, durationMinutes); const duringBreak = breakStart && breakEnd && getMinutes(start) < getMinutes(breakEnd) && getMinutes(end) > getMinutes(breakStart); const overlaps = duringBreak || busySlots.some((slot) => getMinutes(start) < getMinutes(slot.endTime) && getMinutes(end) > getMinutes(slot.startTime)); if (!overlaps) options.push(start); } return options; }
+function getTimeOptions(openTime: string, closeTime: string, breakStart: string | null, breakEnd: string | null, durationMinutes: number, busySlots: BusySlot[], bookingDate: string, blockedPeriods: BlockedPeriod[]) { const options: string[] = []; const dateBlocks = blockedPeriods.filter((period) => bookingDate >= period.startDate && bookingDate <= period.endDate); for (let minutes = getMinutes(openTime); minutes + durationMinutes <= getMinutes(closeTime); minutes += 30) { const start = `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`; const end = getEndTime(start, durationMinutes); const duringBreak = breakStart && breakEnd && getMinutes(start) < getMinutes(breakEnd) && getMinutes(end) > getMinutes(breakStart); const duringTimeOff = dateBlocks.some((period) => !period.startTime || !period.endTime || (getMinutes(start) < getMinutes(period.endTime) && getMinutes(end) > getMinutes(period.startTime))); const overlaps = duringBreak || duringTimeOff || busySlots.some((slot) => getMinutes(start) < getMinutes(slot.endTime) && getMinutes(end) > getMinutes(slot.startTime)); if (!overlaps) options.push(start); } return options; }
 function dateKey(date: Date) { return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`; }
 function dateFromKey(key: string) { return new Date(`${key}T12:00:00`); }
 function hashManageToken(token: string) { return crypto.subtle.digest("SHA-256", new TextEncoder().encode(token)).then((buffer) => Array.from(new Uint8Array(buffer)).map((byte) => byte.toString(16).padStart(2, "0")).join("")); }
@@ -23,7 +23,7 @@ export function BookingForm() {
   const [customerName, setCustomerName] = useState(""); const [customerPhone, setCustomerPhone] = useState(""); const [addOns, setAddOns] = useState<string[]>([]); const [notes, setNotes] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); const [isSubmitting, setIsSubmitting] = useState(false); const router = useRouter();
 
-  useEffect(() => { async function loadSetup() { if (!supabase) return; const [{ data: serviceData }, { data: hoursData }, { data: blockedData }] = await Promise.all([supabase.from("services").select("id, name, durationMinutes, startingPrice").eq("isActive", true).order("name"), supabase.from("opening_hours").select("dayOfWeek, isOpen, openTime, closeTime, breakStart, breakEnd"), supabase.from("blocked_periods").select("id, startDate, endDate, reason")]); setServices((serviceData ?? []) as Service[]); setOpeningHours((hoursData ?? []) as OpeningHour[]); setBlockedPeriods((blockedData ?? []) as BlockedPeriod[]); } void loadSetup(); }, []);
+  useEffect(() => { async function loadSetup() { if (!supabase) return; const [{ data: serviceData }, { data: hoursData }, { data: blockedData }] = await Promise.all([supabase.from("services").select("id, name, durationMinutes, startingPrice").eq("isActive", true).order("name"), supabase.from("opening_hours").select("dayOfWeek, isOpen, openTime, closeTime, breakStart, breakEnd"), supabase.from("blocked_periods").select("id, startDate, endDate, startTime, endTime, reason")]); setServices((serviceData ?? []) as Service[]); setOpeningHours((hoursData ?? []) as OpeningHour[]); setBlockedPeriods((blockedData ?? []) as BlockedPeriod[]); } void loadSetup(); }, []);
   useEffect(() => { async function loadBusySlots() { if (!supabase || !bookingDate) return; const { data } = await supabase.rpc("get_booked_times", { target_date: bookingDate }); setBusySlots((data ?? []) as BusySlot[]); setStartTime(""); } void loadBusySlots(); }, [bookingDate]);
 
   const selectedService = services.find((service) => service.id === serviceId);
@@ -34,7 +34,7 @@ export function BookingForm() {
   const isBlocked = (date: Date) => { const key = dateKey(date); return blockedPeriods.some((period) => key >= period.startDate && key <= period.endDate); };
   const openingHour = bookingDate ? openingHourForDate(dateFromKey(bookingDate)) : null;
   const bookingDuration = (selectedService?.durationMinutes ?? 0) + (addOns.includes("Removal / Soak Off") ? 30 : 0) + (addOns.includes("Nail Art & Charms") ? 30 : 0);
-  const timeOptions = useMemo(() => selectedService && openingHour?.isOpen ? getTimeOptions(openingHour.openTime, openingHour.closeTime, openingHour.breakStart, openingHour.breakEnd, bookingDuration, busySlots) : [], [selectedService, openingHour, bookingDuration, busySlots]);
+  const timeOptions = useMemo(() => selectedService && openingHour?.isOpen ? getTimeOptions(openingHour.openTime, openingHour.closeTime, openingHour.breakStart, openingHour.breakEnd, bookingDuration, busySlots, bookingDate, blockedPeriods) : [], [selectedService, openingHour, bookingDuration, busySlots]);
 
   useEffect(() => {
     async function loadMonthAvailability() {
@@ -44,7 +44,7 @@ export function BookingForm() {
         const key = dateKey(date); const hours = openingHourForDate(date);
         if (!hours?.isOpen || isBlocked(date)) return [key, false] as const;
         const { data } = await supabase.rpc("get_booked_times", { target_date: key });
-        return [key, getTimeOptions(hours.openTime, hours.closeTime, hours.breakStart, hours.breakEnd, selectedService.durationMinutes + (addOns.includes("Removal / Soak Off") ? 30 : 0) + (addOns.includes("Nail Art & Charms") ? 30 : 0), (data ?? []) as BusySlot[]).length > 0] as const;
+        return [key, getTimeOptions(hours.openTime, hours.closeTime, hours.breakStart, hours.breakEnd, selectedService.durationMinutes + (addOns.includes("Removal / Soak Off") ? 30 : 0) + (addOns.includes("Nail Art & Charms") ? 30 : 0), (data ?? []) as BusySlot[], key, blockedPeriods).length > 0] as const;
       }));
       setMonthAvailability(Object.fromEntries(results));
     }
