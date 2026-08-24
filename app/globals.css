@@ -942,3 +942,7 @@ body{font-family:var(--body)}
 .manage-inspo-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 0.9rem; }
 .manage-inspo-item button { border: 0; background: transparent; color: var(--muted); cursor: pointer; font: inherit; font-size: 0.8rem; }
 @media (max-width: 520px) { .manage-inspo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.admin-inspo-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; margin-top: 0.7rem; }
+.admin-inspo-gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 0.9rem; }
+@media (max-width: 520px) { .admin-inspo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
