@@ -18,6 +18,8 @@ export function AdminDashboard() {
 
   async function loadBookings() {
     if (!supabase) return;
+    const { data: roleData, error: roleError } = await supabase.from("admin_users").select("role").maybeSingle();
+    if (roleError || !roleData || !["owner", "admin"].includes(roleData.role)) { setErrorMessage("Your account does not have an admin role yet."); return; }
     const { data, error } = await supabase.from("bookings").select("id, customerName, customerPhone, customerEmail, bookingDate, startTime, endTime, notes, status, services(name)").order("bookingDate", { ascending: true }).order("startTime", { ascending: true });
     if (error) { setErrorMessage(error.message.includes("permission") ? "Your account does not have an admin role yet." : error.message); return; }
     setBookings((data ?? []) as Booking[]);
