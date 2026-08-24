@@ -677,7 +677,7 @@ body{background:#fcfaff}
 @media(max-width:760px){.creative-hero h1{font-size:clamp(4.2rem,19vw,7rem)}.creative-logo{right:12px;top:14px;width:132px;height:102px;border-width:7px}.creative-logo img{width:128px}}
 
 /* Distinctive type pairing and clearer mark */
-:root{--display:"Brasika","Cormorant Garamond","Bodoni 72","Didot","Iowan Old Style","Baskerville",Georgia,serif;--body:"Avenir Next","Helvetica Neue",Arial,sans-serif}
+:root{--display:"Cormorant Garamond","Bodoni 72","Didot","Iowan Old Style","Baskerville",Georgia,serif;--body:"Avenir Next","Helvetica Neue",Arial,sans-serif}
 body{font-family:var(--body)}
 .creative-hero h1,.creative-detail strong,.creative-portfolio-heading h2,.creative-bottom strong{font-family:var(--display);font-weight:500}
 .creative-hero h1{font-size:clamp(4rem,8vw,8.3rem);letter-spacing:-.075em;line-height:.78}
