@@ -7,11 +7,6 @@ import { supabase } from "../../lib/supabaseClient";
 const timeOptions = ["10:00", "12:00", "14:00", "16:00", "18:00"];
 type Service = { id: string; name: string; durationMinutes: number; };
 
-function isValidPhoneNumber(phone: string) {
-  const digits = phone.replace(/\D/g, "");
-  return digits.length >= 7 && digits.length <= 15;
-}
-
 function getEndTime(startTime: string, durationMinutes: number) {
   const [hours, minutes] = startTime.split(":").map(Number);
   const end = new Date(2000, 0, 1, hours, minutes + durationMinutes);
@@ -46,7 +41,6 @@ export function BookingForm() {
     if (!supabase) { setErrorMessage("Booking is not connected yet. Add your Supabase environment variables first."); return; }
     const selectedService = services.find((service) => service.id === serviceId);
     if (!selectedService) { setErrorMessage("Please choose a service."); return; }
-    if (!isValidPhoneNumber(customerPhone)) { setErrorMessage("Please enter a valid phone number, including your country code if needed."); return; }
     setIsSubmitting(true);
     const { error } = await supabase.from("bookings").insert({ customerName, customerPhone, customerEmail: customerEmail || null, serviceId, bookingDate, startTime, endTime: getEndTime(startTime, selectedService.durationMinutes), notes: notes || null, status: "pending" });
     setIsSubmitting(false);
