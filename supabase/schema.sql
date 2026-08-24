@@ -12,6 +12,7 @@ create table public.services (
 
 create table public.bookings (
   id uuid primary key default gen_random_uuid(),
+  "customerUserId" uuid references auth.users(id) on delete set null,
   "customerName" text not null,
   "customerPhone" text not null,
   "customerEmail" text,

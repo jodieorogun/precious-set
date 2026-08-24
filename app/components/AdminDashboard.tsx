@@ -6,7 +6,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { OpeningHoursSettings } from "./OpeningHoursSettings";
 
-type Booking = { id: string; customerName: string; customerPhone: string; customerEmail: string | null; serviceId: string; bookingDate: string; startTime: string; endTime: string; notes: string | null; status: string; services: { name: string; startingPrice: number } | null; };
+type Booking = { id: string; customerUserId: string | null; customerName: string; customerPhone: string; customerEmail: string | null; serviceId: string; bookingDate: string; startTime: string; endTime: string; notes: string | null; status: string; services: { name: string; startingPrice: number } | null; };
 type Service = { id: string; name: string; durationMinutes: number; startingPrice: number; };
 type BookingStatus = "confirmed" | "declined" | "cancelled" | "completed";
 const timeOptions = ["10:00", "12:00", "14:00", "16:00", "18:00"];
@@ -60,7 +60,7 @@ export function AdminDashboard() {
     if (!supabase) return;
     const { data: roleData, error: roleError } = await supabase.from("admin_users").select("role").maybeSingle();
     if (roleError || !roleData || !["owner", "admin"].includes(roleData.role)) { setErrorMessage("Your account does not have an admin role yet."); return; }
-    const [{ data: bookingData, error: bookingError }, { data: serviceData }] = await Promise.all([supabase.from("bookings").select("id, customerName, customerPhone, customerEmail, serviceId, bookingDate, startTime, endTime, notes, status, services(name, startingPrice)").order("bookingDate", { ascending: true }).order("startTime", { ascending: true }), supabase.from("services").select("id, name, durationMinutes, startingPrice").eq("isActive", true).order("name")]);
+    const [{ data: bookingData, error: bookingError }, { data: serviceData }] = await Promise.all([supabase.from("bookings").select("id, customerUserId, customerName, customerPhone, serviceId, bookingDate, startTime, endTime, notes, status, services(name, startingPrice)").order("bookingDate", { ascending: true }).order("startTime", { ascending: true }), supabase.from("services").select("id, name, durationMinutes, startingPrice").eq("isActive", true).order("name")]);
     if (bookingError) { setErrorMessage(bookingError.message); return; }
     const bookingsWithInspo = await Promise.all(((bookingData ?? []) as Booking[]).map(async (booking) => { if (!booking.inspoImageUrl || !supabase) return booking; const { data } = await supabase.storage.from("booking-inspo").createSignedUrl(booking.inspoImageUrl, 3600); return { ...booking, inspoImageUrl: data?.signedUrl ?? null }; })); setBookings(bookingsWithInspo); setServices((serviceData ?? []) as Service[]);
   }
