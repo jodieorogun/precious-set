@@ -1,13 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const services = [
-  ["Gel-X Extensions", "Lightweight length with a polished, glossy finish.", "01", "full set"],
-  ["Gel on Natural Nails", "Clean, glossy colour for your own nails.", "02", "natural nails"],
-  ["Refills", "A fresh, tidy refresh for your current set.", "03", "maintenance"],
+  ["Gel-X Extensions", "Lightweight length with a polished, glossy finish.", "01", "full set", "For a little extra length and a clean, sculpted finish."],
+  ["Gel on Natural Nails", "Clean, glossy colour for your own nails.", "02", "natural nails", "Your natural nails, finished with a smooth, high-shine gel colour."],
+  ["Refills", "A fresh, tidy refresh for your current set.", "03", "maintenance", "Keep your favourite set looking fresh with a considered refill."],
 ];
 
 export default function Home() {
+  const [selectedService, setSelectedService] = useState(0);
+  const selected = services[selectedService];
+
   return <main>
     <section className="hero hero-expressive page-shell">
       <div className="hero-orbit hero-orbit-one" />
@@ -28,7 +34,8 @@ export default function Home() {
     <section className="marquee"><div>THE PRECIOUS SET <span>✦</span> LEEDS NAIL STUDIO <span>✦</span> THOUGHTFUL DETAILS <span>✦</span> THE PRECIOUS SET <span>✦</span></div></section>
     <section className="section page-shell">
       <div className="section-heading expressive-heading"><div><p className="eyebrow">01 / Services</p><h2>Find your<br /><em>finish.</em></h2></div><Link className="text-link" href="/services">View all services <span>↗</span></Link></div>
-      <div className="card-grid expressive-cards">{services.map(([title, description, number, tag]) => <article className="service-card expressive-card" key={title}><div className="card-topline"><span className="card-number">{number}</span><span className="service-tag">{tag}</span></div><h3>{title}</h3><p>{description}</p><Link className="card-arrow" href="/book" aria-label={`Book ${title}`}>↗</Link></article>)}</div>
+      <div className="card-grid expressive-cards interactive-service-cards">{services.map(([title, description, number, tag], index) => <button className={`service-card expressive-card service-selector ${selectedService === index ? "is-selected" : ""}`} key={title} onClick={() => setSelectedService(index)} aria-pressed={selectedService === index}><div className="card-topline"><span className="card-number">{number}</span><span className="service-tag">{tag}</span></div><h3>{title}</h3><p>{description}</p><span className="card-arrow">↗</span></button>)}</div>
+      <div className="service-preview" aria-live="polite"><div className="service-preview-number">{selected[2]}</div><div><p className="eyebrow">Selected service</p><h3>{selected[0]}</h3><p>{selected[4]}</p></div><Link className="button button-dark" href="/book">Book this set <span>↗</span></Link></div>
     </section>
     <section className="feature-band feature-band-expressive page-shell">
       <div className="portfolio-art portfolio-collage">
