@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabaseClient";
 
 type Service = { id: string; name: string; durationMinutes: number; };
-type OpeningHour = { dayOfWeek: number; isOpen: boolean; openTime: string; closeTime: string; };
+type OpeningHour = { dayOfWeek: number; isOpen: boolean; openTime: string; closeTime: string; breakStart: string | null; breakEnd: string | null; };
 type BusySlot = { startTime: string; endTime: string; };
 
 function getEndTime(startTime: string, durationMinutes: number) { const [hours, minutes] = startTime.split(":").map(Number); const end = new Date(2000, 0, 1, hours, minutes + durationMinutes); return `${String(end.getHours()).padStart(2, "0")}:${String(end.getMinutes()).padStart(2, "0")}`; }
 function getMinutes(time: string) { const [hours, minutes] = time.split(":").map(Number); return hours * 60 + minutes; }
-function getTimeOptions(openTime: string, closeTime: string, durationMinutes: number, busySlots: BusySlot[]) { const options: string[] = []; for (let minutes = getMinutes(openTime); minutes + durationMinutes <= getMinutes(closeTime); minutes += 30) { const start = `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`; const end = getEndTime(start, durationMinutes); const overlaps = busySlots.some((slot) => getMinutes(start) < getMinutes(slot.endTime) && getMinutes(end) > getMinutes(slot.startTime)); if (!overlaps) options.push(start); } return options; }
+function getTimeOptions(openTime: string, closeTime: string, breakStart: string | null, breakEnd: string | null, durationMinutes: number, busySlots: BusySlot[]) { const options: string[] = []; for (let minutes = getMinutes(openTime); minutes + durationMinutes <= getMinutes(closeTime); minutes += 30) { const start = `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`; const end = getEndTime(start, durationMinutes); const duringBreak = breakStart && breakEnd && getMinutes(start) < getMinutes(breakEnd) && getMinutes(end) > getMinutes(breakStart); const overlaps = duringBreak || busySlots.some((slot) => getMinutes(start) < getMinutes(slot.endTime) && getMinutes(end) > getMinutes(slot.startTime)); if (!overlaps) options.push(start); } return options; }
 
 export function BookingForm() {
   const [services, setServices] = useState<Service[]>([]); const [openingHours, setOpeningHours] = useState<OpeningHour[]>([]); const [busySlots, setBusySlots] = useState<BusySlot[]>([]);
@@ -18,12 +18,12 @@ export function BookingForm() {
   const [customerName, setCustomerName] = useState(""); const [customerPhone, setCustomerPhone] = useState(""); const [customerEmail, setCustomerEmail] = useState(""); const [notes, setNotes] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); const [isSubmitting, setIsSubmitting] = useState(false); const router = useRouter();
 
-  useEffect(() => { async function loadSetup() { if (!supabase) return; const [{ data: serviceData }, { data: hoursData }] = await Promise.all([supabase.from("services").select("id, name, durationMinutes").eq("isActive", true).order("name"), supabase.from("opening_hours").select("dayOfWeek, isOpen, openTime, closeTime")]); setServices((serviceData ?? []) as Service[]); setOpeningHours((hoursData ?? []) as OpeningHour[]); } void loadSetup(); }, []);
+  useEffect(() => { async function loadSetup() { if (!supabase) return; const [{ data: serviceData }, { data: hoursData }] = await Promise.all([supabase.from("services").select("id, name, durationMinutes").eq("isActive", true).order("name"), supabase.from("opening_hours").select("dayOfWeek, isOpen, openTime, closeTime, breakStart, breakEnd")]); setServices((serviceData ?? []) as Service[]); setOpeningHours((hoursData ?? []) as OpeningHour[]); } void loadSetup(); }, []);
   useEffect(() => { async function loadBusySlots() { if (!supabase || !bookingDate) return; const { data } = await supabase.rpc("get_booked_times", { target_date: bookingDate }); setBusySlots((data ?? []) as BusySlot[]); setStartTime(""); } void loadBusySlots(); }, [bookingDate]);
 
   const selectedService = services.find((service) => service.id === serviceId);
   const openingHour = bookingDate ? openingHours.find((hours) => hours.dayOfWeek === new Date(`${bookingDate}T12:00:00`).getDay()) : null;
-  const timeOptions = useMemo(() => selectedService && openingHour?.isOpen ? getTimeOptions(openingHour.openTime, openingHour.closeTime, selectedService.durationMinutes, busySlots) : [], [selectedService, openingHour, busySlots]);
+  const timeOptions = useMemo(() => selectedService && openingHour?.isOpen ? getTimeOptions(openingHour.openTime, openingHour.closeTime, openingHour.breakStart, openingHour.breakEnd, selectedService.durationMinutes, busySlots) : [], [selectedService, openingHour, busySlots]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setErrorMessage(""); if (!supabase) { setErrorMessage("Booking is not connected yet. Add your Supabase environment variables first."); return; } if (!selectedService) { setErrorMessage("Please choose a service."); return; } if (!openingHour?.isOpen) { setErrorMessage("The studio is closed on that date. Please choose another day."); return; } if (!startTime) { setErrorMessage("Please choose an available time."); return; } setIsSubmitting(true); const { error } = await supabase.from("bookings").insert({ customerName, customerPhone, customerEmail: customerEmail || null, serviceId, bookingDate, startTime, endTime: getEndTime(startTime, selectedService.durationMinutes), notes: notes || null, status: "pending" }); setIsSubmitting(false); if (error) { setErrorMessage(error.message); return; } router.push("/book/confirmation"); }
 
