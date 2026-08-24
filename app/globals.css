@@ -667,3 +667,10 @@ body{background:#fcfaff}
  .creative-portfolio{padding-bottom:105px}.hover-gallery{height:480px}.hover-gallery-card{height:365px;border-width:6px}.hover-gallery-one{left:0}.hover-gallery-two{left:20%;top:80px}.hover-gallery-three{right:0;top:20px}
  .creative-bottom{border-radius:16px 16px 0 0;padding-inline:20px}
 }
+
+/* Clear brand-first hero */
+.creative-hero h1{font-size:clamp(4.4rem,8.8vw,9rem);line-height:.83;letter-spacing:-.1em}
+.creative-hero h1 em{font-style:normal;color:var(--deep)}
+.creative-logo{right:24px;top:24px;width:190px;height:145px;background:#fff;border:10px solid #fff;border-radius:50%;box-shadow:0 16px 30px #25133230}
+.creative-logo img{width:185px;mix-blend-mode:multiply}
+@media(max-width:760px){.creative-hero h1{font-size:clamp(4.2rem,19vw,7rem)}.creative-logo{right:12px;top:14px;width:132px;height:102px;border-width:7px}.creative-logo img{width:128px}}
