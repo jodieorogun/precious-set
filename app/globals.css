@@ -674,3 +674,14 @@ body{background:#fcfaff}
 .creative-logo{right:24px;top:24px;width:190px;height:145px;background:#fff;border:10px solid #fff;border-radius:50%;box-shadow:0 16px 30px #25133230}
 .creative-logo img{width:185px;mix-blend-mode:multiply}
 @media(max-width:760px){.creative-hero h1{font-size:clamp(4.2rem,19vw,7rem)}.creative-logo{right:12px;top:14px;width:132px;height:102px;border-width:7px}.creative-logo img{width:128px}}
+
+/* Distinctive type pairing and clearer mark */
+:root{--display:"Bodoni 72","Didot","Iowan Old Style","Baskerville",Georgia,serif;--body:"Avenir Next","Helvetica Neue",Arial,sans-serif}
+body{font-family:var(--body)}
+.creative-hero h1,.creative-detail strong,.creative-portfolio-heading h2,.creative-bottom strong{font-family:var(--display);font-weight:500}
+.creative-hero h1{font-size:clamp(4rem,8vw,8.3rem);letter-spacing:-.075em;line-height:.78}
+.creative-hero h1 em{font-weight:600;letter-spacing:-.1em}
+.creative-logo{z-index:3;width:245px;height:185px;right:28px;top:28px;background:#fff;border:12px solid #fff;border-radius:50%;box-shadow:0 18px 35px #25133235}
+.creative-logo img{width:235px;height:auto;mix-blend-mode:multiply}
+.creative-photo-label{z-index:4;letter-spacing:.12em;border-radius:999px;padding:10px 15px}
+@media(max-width:760px){.creative-hero h1{font-size:clamp(4rem,18vw,6.7rem)}.creative-logo{width:150px;height:115px;right:13px;top:15px;border-width:8px}.creative-logo img{width:145px}}
