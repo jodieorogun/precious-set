@@ -29,7 +29,7 @@ function getWhatsAppLink(booking: Booking, kind: "confirmed" | "modify" = "confi
   const time = changedDetails?.startTime ?? booking.startTime;
   const message = kind === "modify"
     ? `Hi ${booking.customerName} __HEART__ Thanks for booking with *The Precious Set*. Unfortunately, we’ll need to make a small change to your appointment.\nWould you be available for *${formatDate(date)} at ${formatTime(time)}* instead?\nPlease let us know if this works for you, or we can find another suitable time __NAIL__`
-    : `Hi ${booking.customerName} __HEART__ Your appointment with *The Precious Set* has been confirmed!\n*Service:* ${booking.services?.name ?? "Appointment"}\n*Date:* ${formatDate(date)}\n*Time:* ${formatTime(time)}\nCan’t wait to see you __NAIL____SPARKLES__`;
+    : `Hi ${booking.customerName} __HEART__ Your appointment with *The Precious Set* has been confirmed!\n*Service:* ${booking.services?.name ?? "Appointment"}\n*Date:* ${formatDate(date)}\n*Time:* ${formatTime(time)}\n*Price:* £${Number(booking.services?.startingPrice ?? 0).toFixed(2)}\nCan’t wait to see you __NAIL____SPARKLES__`;
   return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeWhatsAppMessage(message)}`;
 }
 
