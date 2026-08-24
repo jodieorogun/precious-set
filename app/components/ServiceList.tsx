@@ -19,9 +19,9 @@ export function ServiceList() {
     void loadServices();
   }, []);
 
-  if (isLoading) return <section className="page-shell simple-grid"><p>Loading services…</p></section>;
+  if (isLoading) return <section className="page-shell services-grid"><p>Loading services…</p></section>;
   if (!supabase) return <section className="page-shell placeholder-panel">Add Supabase keys to load services.</section>;
   if (!services.length) return <section className="page-shell placeholder-panel">No active services yet.</section>;
 
-  return <section className="page-shell simple-grid">{services.map((service) => <article key={service.id}><p className="eyebrow">From £{Number(service.startingPrice).toFixed(2)} · {service.durationMinutes} mins</p><h2>{service.name}</h2><p>{service.description || "A considered service from The Precious Set."}</p></article>)}</section>;
+  return <section className="page-shell services-grid">{services.map((service) => <article className="service-menu-card" key={service.id}><p className="eyebrow">From £{Number(service.startingPrice).toFixed(2)} · {service.durationMinutes} mins</p><h2>{service.name}</h2><p>{service.description || "A considered service from The Precious Set."}</p></article>)}</section>;
 }
