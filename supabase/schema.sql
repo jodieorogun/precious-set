@@ -21,6 +21,8 @@ create table public.bookings (
   "startTime" time not null,
   "endTime" time not null,
   notes text,
+  "addOns" text[] not null default '{}',
+  "addonPrice" numeric(10, 2) not null default 0,
   "inspoImageUrl" text,
   status booking_status not null default 'pending',
   "googleCalendarEventId" text,
