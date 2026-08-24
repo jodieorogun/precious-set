@@ -906,3 +906,9 @@ body{font-family:var(--body)}
 .admin-page .admin-notes-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .admin-page .admin-notes-actions .button{width:auto;min-width:110px;justify-content:center;margin:0}
 @media(max-width:760px){.admin-page .admin-notes{padding:15px}.admin-page .admin-notes-actions{display:flex}.admin-page .admin-notes-actions .button{flex:1;min-width:0}}
+
+/* Compact internal page headers */
+.page-intro-new{padding-block:55px 32px;display:flex;align-items:end;gap:35px}
+.page-intro-new h1{font-size:clamp(2.5rem,4.5vw,4.5rem);line-height:.9;letter-spacing:-.07em;margin-top:14px}
+.page-intro-new .lede{font-size:.86rem;line-height:1.5;margin-bottom:3px}
+@media(max-width:760px){.page-intro-new{display:block;padding-block:45px 25px}.page-intro-new h1{font-size:3rem;margin:12px 0 22px}.page-intro-new .lede{max-width:300px}}
