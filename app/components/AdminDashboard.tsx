@@ -16,8 +16,10 @@ const timeOptions = ["10:00", "12:00", "14:00", "16:00", "18:00"];
 function formatTime(time: string) { return time.slice(0, 5); }
 function formatTimeRange(startTime: string, endTime: string) { return `${formatTime(startTime)}–${formatTime(endTime)}`; }
 function formatDate(date: string) { return new Date(`${date}T12:00:00`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" }); }
-function todayString() { return new Date().toISOString().slice(0, 10); }
-function isUpcoming(booking: Booking) { return booking.status === "confirmed" && booking.bookingDate >= todayString(); }
+function localDateKey(date: Date) { return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`; }
+function dateOffsetString(days: number) { const date = new Date(); date.setDate(date.getDate() + days); return localDateKey(date); }
+function todayString() { return localDateKey(new Date()); }
+function isUpcoming(booking: Booking) { return booking.status === "confirmed" && booking.bookingDate >= dateOffsetString(2); }
 function getEndTime(startTime: string, durationMinutes: number) { const [hours, minutes] = startTime.split(":").map(Number); const end = new Date(2000, 0, 1, hours, minutes + durationMinutes); return `${String(end.getHours()).padStart(2, "0")}:${String(end.getMinutes()).padStart(2, "0")}`; }
 function getBookingPriceLabel(booking: Booking) { const basePrice = Number(booking.services?.startingPrice ?? 0) + Number(booking.addonPrice ?? 0); return booking.addOns?.includes("Nail Art & Charms") ? `£${(basePrice + 5).toFixed(2)}–£${(basePrice + 12).toFixed(2)}` : `£${basePrice.toFixed(2)}`; }
 function hashManageToken(token: string) { return crypto.subtle.digest("SHA-256", new TextEncoder().encode(token)).then((buffer) => Array.from(new Uint8Array(buffer)).map((byte) => byte.toString(16).padStart(2, "0")).join("")); }
@@ -123,7 +125,7 @@ export function AdminDashboard() {
   const confirmedChangeRequests = bookings.filter((booking) => booking.status === "confirmed" && ["pending", "submitted"].includes(booking.changeRequestStatus ?? "")).sort((a, b) => (a.changeRequestDate ?? "").localeCompare(b.changeRequestDate ?? ""));
   const customerCancelledBookings = bookings.filter((booking) => booking.status === "cancelled" && booking.cancelledBy === "customer").sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const todayBookings = bookings.filter((booking) => booking.bookingDate === todayString() && booking.status === "confirmed").sort((a, b) => a.startTime.localeCompare(b.startTime));
-  const tomorrowDate = new Date(); tomorrowDate.setDate(tomorrowDate.getDate() + 1); const tomorrowString = tomorrowDate.toISOString().slice(0, 10);
+  const tomorrowDate = new Date(); tomorrowDate.setDate(tomorrowDate.getDate() + 1); const tomorrowString = localDateKey(tomorrowDate);
   const tomorrowBookings = bookings.filter((booking) => booking.bookingDate === tomorrowString && booking.status === "confirmed").sort((a, b) => a.startTime.localeCompare(b.startTime));
   const upcomingBookings = bookings.filter(isUpcoming).sort((a, b) => a.bookingDate.localeCompare(b.bookingDate) || a.startTime.localeCompare(b.startTime));
   const completedBookings = bookings.filter((booking) => booking.status === "completed").sort((a, b) => a.bookingDate.localeCompare(b.bookingDate) || a.startTime.localeCompare(b.startTime));
