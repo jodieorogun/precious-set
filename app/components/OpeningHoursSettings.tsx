@@ -23,8 +23,12 @@ export function OpeningHoursSettings() {
     setHours((current) => current.map((hour) => hour.id === id ? { ...hour, ...changes } : hour));
   }
 
+  function getMinutes(time: string) { const [hours, minutes] = time.split(":").map(Number); return hours * 60 + minutes; }
+
   async function saveHours() {
     if (!supabase) return;
+    const invalidBreak = hours.find((hour) => hour.isOpen && ((hour.breakStart && !hour.breakEnd) || (!hour.breakStart && hour.breakEnd) || (hour.breakStart && hour.breakEnd && (getMinutes(hour.breakStart) < getMinutes(hour.openTime) || getMinutes(hour.breakEnd) > getMinutes(hour.closeTime) || getMinutes(hour.breakStart) >= getMinutes(hour.breakEnd)))));
+    if (invalidBreak) { setMessage(`${dayNames[invalidBreak.dayOfWeek]} break must sit inside its opening hours.`); return; }
     const results = await Promise.all(hours.map((hour) => supabase.from("opening_hours").update({ isOpen: hour.isOpen, openTime: hour.openTime, closeTime: hour.closeTime, breakStart: hour.breakStart || null, breakEnd: hour.breakEnd || null }).eq("id", hour.id)));
     const error = results.find((result) => result.error)?.error;
     setMessage(error ? error.message : "Opening hours saved.");
@@ -42,7 +46,7 @@ export function OpeningHoursSettings() {
               {hour.isOpen ? (
                 <>
                   <div className="hours-time-group"><span>Open</span><input aria-label={`${dayNames[hour.dayOfWeek]} opening time`} type="time" value={hour.openTime.slice(0, 5)} onChange={(event) => updateHour(hour.id, { openTime: event.target.value })} /><b>to</b><input aria-label={`${dayNames[hour.dayOfWeek]} closing time`} type="time" value={hour.closeTime.slice(0, 5)} onChange={(event) => updateHour(hour.id, { closeTime: event.target.value })} /></div>
-                  <div className="hours-time-group break-group"><span>Break</span><input aria-label={`${dayNames[hour.dayOfWeek]} break start`} type="time" value={hour.breakStart?.slice(0, 5) || ""} onChange={(event) => updateHour(hour.id, { breakStart: event.target.value || null })} /><b>to</b><input aria-label={`${dayNames[hour.dayOfWeek]} break end`} type="time" value={hour.breakEnd?.slice(0, 5) || ""} onChange={(event) => updateHour(hour.id, { breakEnd: event.target.value || null })} /></div>
+                  <div className="hours-time-group break-group"><span>Break</span><input aria-label={`${dayNames[hour.dayOfWeek]} break start`} type="time" min={hour.openTime.slice(0, 5)} max={hour.closeTime.slice(0, 5)} value={hour.breakStart?.slice(0, 5) || ""} onChange={(event) => updateHour(hour.id, { breakStart: event.target.value || null })} /><b>to</b><input aria-label={`${dayNames[hour.dayOfWeek]} break end`} type="time" min={hour.openTime.slice(0, 5)} max={hour.closeTime.slice(0, 5)} value={hour.breakEnd?.slice(0, 5) || ""} onChange={(event) => updateHour(hour.id, { breakEnd: event.target.value || null })} /></div>
                 </>
               ) : <div className="hours-closed">Closed</div>}
             </div>
