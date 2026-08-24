@@ -1,4 +1,6 @@
-create or replace function public.get_booking_by_manage_token(token_hash text)
+drop function if exists public.get_booking_by_manage_token(text);
+
+create function public.get_booking_by_manage_token(token_hash text)
 returns table ("bookingId" uuid, "customerName" text, "serviceName" text, "bookingDate" date, "startTime" time, "endTime" time, status booking_status, "startingPrice" numeric, "inspoImageUrl" text)
 language sql security definer set search_path = public
 as $$
