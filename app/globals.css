@@ -631,3 +631,6 @@ body{background:#fcfaff}
  .hover-gallery-card{height:350px;width:58%;border-width:5px}.hover-gallery-one{left:0}.hover-gallery-two{left:20%;top:65px}.hover-gallery-three{right:0}
  .creative-bottom{grid-template-columns:1fr 1fr;gap:12px}.creative-bottom .eyebrow{grid-column:1/-1}.creative-bottom a{justify-self:end}
 }
+
+.creative-bottom strong{font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.04em}
+@media(max-width:760px){.creative-bottom strong{font-size:1.45rem}}

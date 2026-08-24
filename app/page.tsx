@@ -4,7 +4,7 @@ import Link from "next/link";
 const studioDetails = [
   ["01", "Services", "Gel-X, natural gel and refills.", "/services", "View menu"],
   ["02", "Portfolio", "Real sets from The Precious Set.", "/portfolio", "See the work"],
-  ["03", "Find us", "Leeds · by appointment.", "#find-us", "Our location"],
+  ["03", "Find us", "Leeds, United Kingdom.", "#find-us", "Our location"],
   ["04", "Instagram", "@the_precious_set", "https://www.instagram.com/the_precious_set/", "Follow along"],
 ];
 
@@ -23,6 +23,6 @@ export default function Home() {
         <div className="hover-gallery-card hover-gallery-three"><Image src="/portfolio/04.jpeg" alt="White 3D nail set by The Precious Set" width={550} height={680} /><span>03</span></div>
       </div>
     </section>
-    <section className="creative-bottom page-shell" id="find-us"><span className="eyebrow">03 / Find us</span><strong>Leeds</strong><span>By appointment only</span><Link href="/book">Book ↗</Link></section>
+    <section className="creative-bottom page-shell" id="find-us"><span className="eyebrow">03 / Find us</span><strong>Leeds, United Kingdom</strong><span>By appointment only</span><Link href="/book">Book ↗</Link></section>
   </main>;
 }
