@@ -1,0 +1,2 @@
+update public.services set description = 'Full set of Gel-X extensions. Painting included in the appointment. Nail art and charms add approximately 30 minutes and cost £5–£12 depending on design difficulty.' where name = 'Gel-X Extensions';
+update public.services set description = 'Gel application on natural nails. Painting included in the appointment. Nail art and charms add approximately 30 minutes and cost £5–£12 depending on design difficulty.' where name = 'Gel on Natural Nails';
