@@ -62,7 +62,7 @@ export function AdminDashboard() {
   if (!supabase) return <section className="admin-panel"><p className="form-error">Add Supabase environment variables to use the dashboard.</p></section>;
   if (!sessionEmail) return <section className="admin-panel admin-login"><form className="admin-login-form" onSubmit={handleLogin}><label>Email<input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label><label>Password<input required type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>{errorMessage && <p className="form-error" role="alert">{errorMessage}</p>}<button className="button button-dark submit-button" disabled={isSubmitting}>{isSubmitting ? "Signing in…" : "Sign in ↗"}</button></form></section>;
 
-  const todayBookings = bookings.filter((booking) => booking.bookingDate === todayString() && ["pending", "confirmed"].includes(booking.status));
+  const todayBookings = bookings.filter((booking) => booking.bookingDate === todayString() && ["pending", "confirmed"].includes(booking.status)).sort((a, b) => a.startTime.localeCompare(b.startTime));
   const upcomingBookings = bookings.filter(isUpcoming);
   const completedBookings = bookings.filter((booking) => booking.status === "completed").sort((a, b) => b.bookingDate.localeCompare(a.bookingDate));
   const allBookings = bookings.slice().sort((a, b) => b.bookingDate.localeCompare(a.bookingDate) || b.startTime.localeCompare(a.startTime));
