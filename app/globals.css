@@ -27,3 +27,5 @@
 .social-link{color:inherit;text-decoration:none;border-bottom:1px solid var(--deep)}
 
 .file-name{color:var(--muted);font-size:.72rem;font-weight:400}.booking-inspo{margin:12px 0 0;font-size:.8rem}.booking-inspo a{color:var(--deep)}
+
+.booking-form .form-section:first-child .form-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);align-items:start}.booking-form .form-section:first-child .date-picker-field{grid-column:2;grid-row:1 / span 2}.booking-form .form-section:first-child .time-picker-field{grid-column:1;grid-row:2}@media(max-width:700px){.booking-form .form-section:first-child .form-grid{grid-template-columns:1fr}.booking-form .form-section:first-child .date-picker-field,.booking-form .form-section:first-child .time-picker-field{grid-column:auto;grid-row:auto}}
