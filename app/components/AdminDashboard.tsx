@@ -13,6 +13,7 @@ type BookingStatus = "confirmed" | "declined" | "cancelled" | "completed";
 const timeOptions = ["10:00", "12:00", "14:00", "16:00", "18:00"];
 
 function formatTime(time: string) { return time.slice(0, 5); }
+function formatTimeRange(startTime: string, endTime: string) { return `${formatTime(startTime)}–${formatTime(endTime)}`; }
 function formatDate(date: string) { return new Date(`${date}T12:00:00`).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" }); }
 function todayString() { return new Date().toISOString().slice(0, 10); }
 function isUpcoming(booking: Booking) { return booking.status === "confirmed" && booking.bookingDate >= todayString(); }
@@ -30,8 +31,8 @@ function getWhatsAppLink(booking: Booking, kind: "confirmed" | "modify" = "confi
   const time = changedDetails?.startTime ?? booking.startTime;
   const endTime = changedDetails?.endTime ?? booking.endTime;
   const message = kind === "modify"
-    ? `Hi ${booking.customerName} __HEART__ Thanks for booking with *The Precious Set*. Unfortunately, we’ll need to make a small change to your appointment.\nWould you be available for *${formatDate(date)} at ${formatTime(time)}–${formatTime(endTime)}* instead?\nPlease let us know if this works for you, or we can find another suitable time __NAIL__`
-    : `Hi ${booking.customerName} __HEART__ Your appointment with *The Precious Set* has been confirmed!\n*Service:* ${booking.services?.name ?? "Appointment"}\n*Date:* ${formatDate(date)}\n*Time:* ${formatTime(time)}–${formatTime(endTime)}\n*Price:* £${(Number(booking.services?.startingPrice ?? 0) + Number(booking.addonPrice ?? 0)).toFixed(2)}${booking.addOns?.includes("Nail Art & Charms") ? " + Nail Art & Charms (£5–£12 depending on design difficulty)" : ""}\nCan’t wait to see you __NAIL____SPARKLES__`;
+    ? `Hi ${booking.customerName} __HEART__ Thanks for booking with *The Precious Set*. Unfortunately, we’ll need to make a small change to your appointment.\nWould you be available for *${formatDate(date)} at ${formatTimeRange(time, endTime)}* instead?\nPlease let us know if this works for you, or we can find another suitable time __NAIL__`
+    : `Hi ${booking.customerName} __HEART__ Your appointment with *The Precious Set* has been confirmed!\n*Service:* ${booking.services?.name ?? "Appointment"}\n*Date:* ${formatDate(date)}\n*Time:* ${formatTimeRange(time, endTime)}\n*Price:* £${(Number(booking.services?.startingPrice ?? 0) + Number(booking.addonPrice ?? 0)).toFixed(2)}${booking.addOns?.includes("Nail Art & Charms") ? " + Nail Art & Charms (£5–£12 depending on design difficulty)" : ""}\nCan’t wait to see you __NAIL____SPARKLES__`;
   return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeWhatsAppMessage(message)}`;
 }
 
