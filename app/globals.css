@@ -763,3 +763,10 @@ body{font-family:var(--body)}
 .hero-mini-gallery>div{width:38%;height:510px}
 .hero-mini-gallery>div:nth-child(1){left:0}.hero-mini-gallery>div:nth-child(2){left:31%}.hero-mini-gallery>div:nth-child(3){right:0}
 @media(max-width:760px){.hero-mini-gallery{height:440px}.hero-mini-gallery>div{width:39%;height:385px}.hero-mini-gallery>div:nth-child(1){left:0}.hero-mini-gallery>div:nth-child(2){left:30%}.hero-mini-gallery>div:nth-child(3){right:0}}
+
+/* Tighter hero rhythm */
+.creative-hero{min-height:auto;padding-block:45px 75px}
+.creative-hero-copy{padding-top:5vh}
+.hero-mini-gallery{height:500px}
+.hero-mini-gallery>div{height:455px}
+@media(max-width:760px){.creative-hero{padding-block:45px 65px}.creative-hero-copy{padding-top:0}.hero-mini-gallery{height:400px}.hero-mini-gallery>div{height:350px}}
