@@ -36,15 +36,15 @@ create policy "Active services are publicly readable" on public.services for sel
 create policy "Anyone can request a pending booking" on public.bookings for insert with check (status = 'pending');
 
 insert into public.services (name, description, "startingPrice", "durationMinutes", "isActive") values
-  ('Gel-X / Extensions', 'Lightweight extensions with a clean, polished finish.', 45.00, 120, true),
-  ('Gel on Natural Nails', 'A durable gel finish on your natural nails.', 30.00, 90, true),
-  ('Infills', 'Refresh and rebalance your existing enhancement set.', 35.00, 90, true),
-  ('Removals', 'Safe, careful removal of an existing set.', 15.00, 45, true),
-  ('French', 'A classic French finish with a crisp, delicate detail.', 10.00, 20, true),
-  ('Chrome', 'A reflective chrome finish for a little extra shine.', 10.00, 20, true),
-  ('Nail Art', 'Custom hand-painted details tailored to your set.', 15.00, 30, true),
-  ('3D Designs', 'Raised, sculptural nail art for a statement finish.', 20.00, 30, true),
-  ('Charms', 'A curated charm detail to make your set feel yours.', 8.00, 15, true);
+  ('Gel-X Extensions', 'Full set of Gel-X extensions. Painting is included; allow an additional 20 minutes. Nail art and charms add approximately 30 minutes. Add-ons are £5–£12.', 30.00, 60, true),
+  ('Gel on Natural Nails', 'Gel application on natural nails. Painting is included; allow an additional 20 minutes. Nail art and charms add approximately 30 minutes. Add-ons are £5–£12.', 20.00, 60, true),
+  ('Refills', 'Refresh and rebalance your existing set. Appointment time to be confirmed.', 20.00, 90, true),
+  ('Removal / Soak Off', 'Removal of Gel-X or gel.', 10.00, 30, true),
+  ('French', 'Legacy service; use as an add-on.', 10.00, 20, false),
+  ('Chrome', 'Legacy service; use as an add-on.', 10.00, 20, false),
+  ('Nail Art', 'Legacy service; now offered as an add-on.', 10.00, 30, false),
+  ('3D Designs', 'Legacy service; now offered as an add-on.', 12.00, 30, false),
+  ('Charms', 'Legacy service; now offered as an add-on.', 5.00, 30, false);
 
 
 create table public.admin_users (
