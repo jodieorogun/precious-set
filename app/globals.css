@@ -474,3 +474,38 @@ body{background:#fff;color:var(--ink);font-family:"Avenir Next","Helvetica Neue"
  .minimal-images img:first-child{grid-row:span 2;height:508px}
  .minimal-images img:nth-child(2){margin-top:0}
 }
+
+/* Bubbly minimal finish */
+body{background:#fcfaff}
+.site-header-new{margin-top:14px;height:72px;padding:6px 14px;border:1px solid #eadcf4;border-radius:999px;background:#ffffffdc;box-shadow:0 10px 28px #7040a014;backdrop-filter:blur(16px)}
+.site-header-new:after{display:none}
+.site-header-new .brand img{width:95px;height:62px}
+.minimal-home{padding-top:18px}
+.minimal-hero{min-height:calc(100vh - 104px);padding-block:45px 75px}
+.minimal-hero-image{border-radius:50%;background:linear-gradient(145deg,#f2e2ff,#fff1ec);box-shadow:0 22px 45px #7040a018}
+.minimal-hero-image img{filter:drop-shadow(0 16px 12px #7040a018)}
+.minimal-book{box-shadow:0 10px 22px #693b9433;transition:transform .2s ease,box-shadow .2s ease}
+.minimal-book:hover{transform:translateY(-3px);box-shadow:0 15px 26px #693b9440}
+.minimal-links{gap:14px;border:0}
+.minimal-links>a,.minimal-location{min-height:165px;padding:22px;border:1px solid #eadcf4!important;border-radius:28px;background:#fff;box-shadow:0 10px 25px #7040a00d;transition:transform .22s ease,box-shadow .22s ease,background .22s ease}
+.minimal-links>a:hover{transform:translateY(-5px);background:#f8f1ff;box-shadow:0 18px 30px #7040a01a}
+.minimal-location{background:#fff0e9}
+.minimal-links strong{font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;font-weight:700;letter-spacing:-.04em}
+.minimal-links i{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:#f0e2fb}
+.minimal-location b{padding:7px 12px;border-radius:999px;background:#fff;color:#704060}
+.minimal-images{gap:18px}
+.minimal-images img{border-radius:30px;box-shadow:0 16px 32px #7040a018}
+.minimal-images img:nth-child(2){margin-top:60px}
+.site-footer-new{border-top:0;margin-top:20px;padding-top:10px}
+@media(max-width:760px){
+ .site-header-new{margin-top:9px;height:64px;padding-inline:10px}
+ .site-header-new .brand img{width:80px;height:56px}
+ .site-header-new nav{top:70px;border:1px solid #eadcf4;border-radius:22px;padding:12px;box-shadow:0 16px 30px #43215d18}
+ .minimal-home{padding-top:10px}
+ .minimal-hero{min-height:0;padding-block:58px 75px}
+ .minimal-hero-image{min-height:330px}
+ .minimal-links{gap:10px}
+ .minimal-links>a,.minimal-location{min-height:138px;padding:17px;border-radius:22px}
+ .minimal-images{gap:9px}
+ .minimal-images img{border-radius:20px}
+}
