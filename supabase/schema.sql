@@ -20,6 +20,7 @@ create table public.bookings (
   "startTime" time not null,
   "endTime" time not null,
   notes text,
+  "inspoImageUrl" text,
   status booking_status not null default 'pending',
   "googleCalendarEventId" text,
   "createdAt" timestamptz not null default now()
@@ -59,3 +60,10 @@ drop policy if exists "Authenticated admins can read bookings" on public.booking
 drop policy if exists "Authenticated admins can update bookings" on public.bookings;
 create policy "Authenticated admins can read bookings" on public.bookings for select to authenticated using (exists (select 1 from public.admin_users where user_id = auth.uid() and role in ('owner', 'admin')));
 create policy "Authenticated admins can update bookings" on public.bookings for update to authenticated using (exists (select 1 from public.admin_users where user_id = auth.uid() and role in ('owner', 'admin'))) with check (status in ('pending', 'confirmed', 'declined', 'cancelled', 'completed'));
+
+
+insert into storage.buckets (id, name, public) values ('booking-inspo', 'booking-inspo', false) on conflict (id) do update set public = false;
+drop policy if exists "Anyone can upload booking inspiration" on storage.objects;
+create policy "Anyone can upload booking inspiration" on storage.objects for insert to anon, authenticated with check (bucket_id = 'booking-inspo');
+drop policy if exists "Admins can view booking inspiration" on storage.objects;
+create policy "Admins can view booking inspiration" on storage.objects for select to authenticated using (bucket_id = 'booking-inspo' and exists (select 1 from public.admin_users where user_id = auth.uid() and role in ('owner', 'admin')));

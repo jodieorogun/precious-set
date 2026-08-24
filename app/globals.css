@@ -25,3 +25,5 @@
 .time-picker-field{display:flex;flex-direction:column;gap:8px}.time-picker{min-height:48px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.time-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.time-options button{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:11px 8px;font:inherit;font-size:.78rem;cursor:pointer}.time-options button:hover{background:var(--lavender);border-color:var(--lilac)}.time-options button.selected{background:var(--deep);border-color:var(--deep);color:#fff}.picker-placeholder{margin:7px 4px;color:var(--muted);font-size:.75rem}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:700px){.time-options{grid-template-columns:repeat(3,1fr)}}
 
 .social-link{color:inherit;text-decoration:none;border-bottom:1px solid var(--deep)}
+
+.file-name{color:var(--muted);font-size:.72rem;font-weight:400}.booking-inspo{margin:12px 0 0;font-size:.8rem}.booking-inspo a{color:var(--deep)}
