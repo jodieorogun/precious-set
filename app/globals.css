@@ -733,3 +733,23 @@ body{font-family:var(--body)}
 .hover-gallery:hover .hover-gallery-two{transform:translateY(-30px) rotate(0deg)}
 .hover-gallery:hover .hover-gallery-three{transform:translate(8px,-18px) rotate(8deg)}
 @media(max-width:760px){.creative-portfolio-heading{display:block}.creative-portfolio-heading .text-link{display:inline-block;margin-top:28px}.hover-gallery{height:440px}.hover-gallery-card{width:34%;height:330px}.hover-gallery-one{left:0}.hover-gallery-two{left:33%}.hover-gallery-three{right:0}}
+
+/* Hero portfolio interaction */
+.creative-hero{grid-template-columns:.7fr 1.3fr;gap:8%;align-items:center}
+.creative-hero-gallery{min-width:0;padding-top:7vh}
+.creative-hero-gallery-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:25px}
+.creative-hero-gallery-heading .eyebrow{margin:0 0 5px}
+.creative-hero-gallery-heading h2{font-family:var(--display);font-size:clamp(2.8rem,4.5vw,5rem);font-weight:500;line-height:.8;letter-spacing:-.07em;margin:0}
+.creative-hero-gallery-heading h2 em{font-family:var(--script);font-size:1.16em;font-weight:400;color:var(--deep);letter-spacing:-.03em}
+.hero-mini-gallery{position:relative;height:470px;display:flex;align-items:center;justify-content:center;gap:0}
+.hero-mini-gallery>div{position:absolute;width:34%;height:430px;overflow:hidden;border:8px solid #fff;background:#eee3f5;box-shadow:0 14px 25px #3a214522;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s ease}
+.hero-mini-gallery img{width:100%;height:100%;display:block;object-fit:cover}
+.hero-mini-gallery>div:nth-child(1){left:3%;transform:rotate(-8deg);z-index:1}
+.hero-mini-gallery>div:nth-child(2){left:33%;transform:rotate(1deg);z-index:3}
+.hero-mini-gallery>div:nth-child(3){right:3%;transform:rotate(8deg);z-index:2}
+.hero-mini-gallery:hover>div:nth-child(1){transform:translate(-17px,12px) rotate(-14deg);box-shadow:0 24px 35px #3a21453d}
+.hero-mini-gallery:hover>div:nth-child(2){transform:translateY(-18px) rotate(0);box-shadow:0 28px 40px #3a214540}
+.hero-mini-gallery:hover>div:nth-child(3){transform:translate(17px,12px) rotate(14deg);box-shadow:0 24px 35px #3a21453d}
+@media(max-width:760px){
+ .creative-hero{gap:45px}.creative-hero-gallery{padding-top:0}.creative-hero-gallery-heading{display:block}.creative-hero-gallery-heading h2{margin-top:18px}.hero-mini-gallery{height:395px}.hero-mini-gallery>div{height:340px;width:38%;border-width:5px}.hero-mini-gallery>div:nth-child(1){left:0}.hero-mini-gallery>div:nth-child(2){left:31%}.hero-mini-gallery>div:nth-child(3){right:0}
+}
