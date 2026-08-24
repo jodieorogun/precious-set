@@ -1,0 +1,2 @@
+import { PageIntro } from "../components/PageIntro";
+export default function Admin() { return <main><PageIntro eyebrow="Admin" title="The studio dashboard." description="A private admin dashboard for managing booking requests and studio content will be built in a later phase." /><section className="page-shell placeholder-panel" aria-label="Admin dashboard placeholder">admin dashboard placeholder</section></main>; }

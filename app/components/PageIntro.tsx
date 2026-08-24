@@ -1,0 +1,1 @@
+export function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) { return <section className="page-intro page-shell"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lede">{description}</p></section>; }
