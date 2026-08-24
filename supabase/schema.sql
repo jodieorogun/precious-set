@@ -43,3 +43,19 @@ insert into public.services (name, description, "startingPrice", "durationMinute
   ('Nail Art', 'Custom hand-painted details tailored to your set.', 15.00, 30, true),
   ('3D Designs', 'Raised, sculptural nail art for a statement finish.', 20.00, 30, true),
   ('Charms', 'A curated charm detail to make your set feel yours.', 8.00, 15, true);
+
+
+create table public.admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  role text not null check (role in ('owner', 'admin')),
+  "createdAt" timestamptz not null default now()
+);
+
+alter table public.admin_users enable row level security;
+drop policy if exists "Admins can read their own role" on public.admin_users;
+create policy "Admins can read their own role" on public.admin_users for select to authenticated using (user_id = auth.uid());
+
+drop policy if exists "Authenticated admins can read bookings" on public.bookings;
+drop policy if exists "Authenticated admins can update bookings" on public.bookings;
+create policy "Authenticated admins can read bookings" on public.bookings for select to authenticated using (exists (select 1 from public.admin_users where user_id = auth.uid() and role in ('owner', 'admin')));
+create policy "Authenticated admins can update bookings" on public.bookings for update to authenticated using (exists (select 1 from public.admin_users where user_id = auth.uid() and role in ('owner', 'admin'))) with check (status in ('pending', 'confirmed', 'declined', 'cancelled', 'completed'));
