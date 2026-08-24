@@ -685,3 +685,14 @@ body{font-family:var(--body)}
 .creative-logo img{width:235px;height:auto;mix-blend-mode:multiply}
 .creative-photo-label{z-index:4;letter-spacing:.12em;border-radius:999px;padding:10px 15px}
 @media(max-width:760px){.creative-hero h1{font-size:clamp(4rem,18vw,6.7rem)}.creative-logo{width:150px;height:115px;right:13px;top:15px;border-width:8px}.creative-logo img{width:145px}}
+
+/* Consistent Precious Set palette */
+:root{--lilac:#c58bea;--deep:#693b94;--lavender:#f6edff;--line:#e4d6ef;--peach:#f6edff;--mint:#f6edff;--butter:#f6edff}
+.creative-detail-01,.creative-detail-02,.creative-detail-03,.creative-detail-04{background:var(--lavender);color:var(--ink)}
+.creative-detail-02,.creative-detail-04{background:#efe1fb}
+.creative-detail-03{background:#faf7fd}
+.creative-detail:hover{background:#e7d0f8}
+.creative-bottom{background:var(--deep)}
+.minimal-location,.location-card{background:var(--lavender)!important}
+.social-card{background:#efe1fb!important}
+.admin-stat:nth-child(2),.admin-stat:nth-child(3),.admin-stat:nth-child(4){background:var(--lavender)!important}
