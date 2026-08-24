@@ -34,7 +34,7 @@ export function BookingForm() {
   const isBlocked = (date: Date) => { const key = dateKey(date); return blockedPeriods.some((period) => key >= period.startDate && key <= period.endDate); };
   const openingHour = bookingDate ? openingHourForDate(dateFromKey(bookingDate)) : null;
   const bookingDuration = (selectedService?.durationMinutes ?? 0) + (addOns.includes("Removal / Soak Off") ? 30 : 0) + (addOns.includes("Nail Art & Charms") ? 30 : 0);
-  const timeOptions = useMemo(() => selectedService && openingHour?.isOpen ? getTimeOptions(openingHour.openTime, openingHour.closeTime, openingHour.breakStart, openingHour.breakEnd, bookingDuration, busySlots, bookingDate, blockedPeriods) : [], [selectedService, openingHour, bookingDuration, busySlots]);
+  const timeOptions = useMemo(() => selectedService && openingHour?.isOpen ? getTimeOptions(openingHour.openTime, openingHour.closeTime, openingHour.breakStart, openingHour.breakEnd, bookingDuration, busySlots, bookingDate, blockedPeriods) : [], [selectedService, openingHour, bookingDuration, busySlots, bookingDate, blockedPeriods]);
 
   useEffect(() => {
     async function loadMonthAvailability() {
