@@ -5,7 +5,7 @@ export default function Home() {
   return <main className="minimal-home">
     <section className="minimal-hero page-shell">
       <div className="minimal-hero-copy"><p className="eyebrow">The Precious Set · Leeds</p><h1>Pretty<br /><em>precise.</em></h1><Link className="minimal-book" href="/book">Book <span>↗</span></Link></div>
-      <div className="minimal-hero-image"><Image src="/precious-set-logo.png" alt="The Precious Set" width={700} height={550} priority /></div>
+      <div className="minimal-hero-image"><Image src="/portfolio/03.jpeg" alt="French tip nail set by The Precious Set" width={700} height={850} priority /><div className="minimal-hero-logo"><Image src="/precious-set-logo.png" alt="The Precious Set" width={180} height={140} /></div></div>
     </section>
     <section className="minimal-links page-shell" aria-label="Explore The Precious Set">
       <Link href="/services"><span>01</span><strong>Services</strong><i>↗</i></Link>
