@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabaseClient";
 
 const timeOptions = ["10:00", "12:00", "14:00", "16:00", "18:00"];
@@ -23,7 +24,7 @@ export function BookingForm() {
   const [notes, setNotes] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function loadServices() {
@@ -44,10 +45,8 @@ export function BookingForm() {
     const { error } = await supabase.from("bookings").insert({ customerName, customerPhone, customerEmail: customerEmail || null, serviceId, bookingDate, startTime, endTime: getEndTime(startTime, selectedService.durationMinutes), notes: notes || null, status: "pending" });
     setIsSubmitting(false);
     if (error) { setErrorMessage(error.message); return; }
-    setIsSubmitted(true);
+    router.push("/book/confirmation");
   }
-
-  if (isSubmitted) return <section className="confirmation-card"><span className="confirmation-mark">✦</span><p className="eyebrow">Request received</p><h2>Booking request sent 💅</h2><p>Your appointment isn’t confirmed yet.<br />The Precious Set will contact you once your request has been accepted.</p></section>;
 
   const today = new Date().toISOString().split("T")[0];
   return <form className="booking-form" onSubmit={handleSubmit}><div className="form-section"><p className="eyebrow">01 / Your appointment</p><div className="form-grid"><label>Service<select required value={serviceId} onChange={(event) => setServiceId(event.target.value)}><option value="">Choose a service</option>{services.map((service) => <option key={service.id} value={service.id}>{service.name}</option>)}</select></label><label>Date<input required type="date" min={today} value={bookingDate} onChange={(event) => setBookingDate(event.target.value)} /></label><label>Time<select required value={startTime} onChange={(event) => setStartTime(event.target.value)}><option value="">Choose a time</option>{timeOptions.map((time) => <option key={time} value={time}>{time}</option>)}</select></label></div></div><div className="form-section"><p className="eyebrow">02 / Your details</p><div className="form-grid"><label>Name<input required value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Your name" /></label><label>Phone number<input required type="tel" value={customerPhone} onChange={(event) => setCustomerPhone(event.target.value)} placeholder="07…" /></label><label>Email <span className="optional">optional</span><input type="email" value={customerEmail} onChange={(event) => setCustomerEmail(event.target.value)} placeholder="you@example.com" /></label><label className="full-width">Notes <span className="optional">optional</span><textarea rows={4} value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="Anything The Precious Set should know?" /></label></div></div>{errorMessage && <p className="form-error" role="alert">{errorMessage}</p>}<button className="button button-dark submit-button" type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending request…" : "Send booking request ↗"}</button></form>;
