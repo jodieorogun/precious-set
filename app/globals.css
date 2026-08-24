@@ -790,3 +790,5 @@ body{font-family:var(--body)}
 .creative-location-panel p{margin:8px 0 16px;color:var(--muted);font-size:.78rem}
 @media(max-width:900px){.creative-details{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.creative-details{grid-template-columns:1fr 1fr;padding-bottom:90px}.creative-location-panel{min-height:165px;padding:17px 15px}.creative-location-panel strong{font-size:1.3rem}}
+
+.location-panel-label{color:var(--deep);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
