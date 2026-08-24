@@ -798,3 +798,10 @@ body{font-family:var(--body)}
 .creative-location-panel strong{display:block;margin-top:auto;font-family:Georgia,"Times New Roman",serif;font-size:1.8rem;font-weight:400}
 .creative-location-panel p{margin:8px 0 16px;color:#756a7b;font-size:.78rem}
 @media(max-width:760px){.creative-location-panel{min-height:165px;padding:17px 15px}.creative-location-panel strong{font-size:1.3rem}}
+
+/* Exact equal panel geometry */
+.creative-details{align-items:stretch}
+.creative-detail,.creative-location-panel{min-height:210px!important;padding:24px 22px!important;border-radius:4px!important;margin:0!important;box-sizing:border-box}
+.creative-detail strong,.creative-location-panel strong{margin-top:auto!important}
+.creative-detail p,.creative-location-panel p{margin:8px 0 16px!important;font-size:.78rem!important;line-height:1.45}
+@media(max-width:760px){.creative-detail,.creative-location-panel{min-height:165px!important;padding:17px 15px!important}.creative-detail strong,.creative-location-panel strong{font-size:1.3rem}}
