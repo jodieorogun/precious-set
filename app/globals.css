@@ -865,3 +865,21 @@ body{font-family:var(--body)}
 .admin-page .admin-login h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(2.8rem,5vw,5rem);letter-spacing:-.08em}
 @media(max-width:900px){.admin-page .booking-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.admin-page .admin-panel{padding-top:8px}.admin-page .admin-panel>.admin-heading{padding:22px 18px;border-radius:17px;align-items:flex-start}.admin-page .admin-panel>.admin-heading h2{font-size:2.7rem}.admin-page .admin-heading-actions{justify-content:space-between}.admin-page .admin-stats{gap:8px}.admin-page .admin-stats>div{padding:14px 12px;border-radius:13px}.admin-page .admin-stats strong{font-size:2rem}.admin-page .admin-section-heading{align-items:flex-start;gap:10px}.admin-page .admin-section-heading h3{font-size:1.7rem}.admin-page .booking-detail-grid{grid-template-columns:1fr 1fr;gap:12px}.admin-page .booking-details summary{padding:15px}.admin-page .booking-details summary>span:first-child{width:100%}.admin-page .booking-details summary strong{max-width:100%}}
+
+/* Admin spacing pass */
+.admin-page .admin-panel{padding-top:0;padding-bottom:70px}
+.admin-page .admin-panel>.admin-heading{margin-bottom:14px;padding:22px 26px}
+.admin-page .admin-stats{margin:14px 0 20px}
+.admin-page .admin-section{margin-top:16px;padding-top:16px}
+.admin-page .admin-section-heading{padding-bottom:10px}
+.admin-page .daily-appointments{margin-top:8px}
+.admin-page .admin-day-grid{gap:12px}
+.admin-page .admin-day-column{padding:13px}
+.admin-page .admin-day-heading{margin-bottom:11px;padding:10px 12px}
+.admin-page .booking-list{gap:8px}
+.admin-page .booking-details summary{padding:14px 16px}
+.admin-page .booking-detail-body{padding:17px 16px}
+.admin-page .booking-detail-body .booking-actions{margin-top:18px}
+.admin-page .admin-notes{margin-top:18px;padding:15px}
+.admin-page .admin-alerts{margin-bottom:16px;padding:12px 14px}
+@media(max-width:760px){.admin-page .admin-panel>.admin-heading{padding:18px 16px;margin-bottom:10px}.admin-page .admin-stats{margin:10px 0 15px}.admin-page .admin-section{margin-top:12px;padding-top:12px}.admin-page .admin-day-column{padding:10px}.admin-page .booking-detail-body{padding:15px 13px}}
