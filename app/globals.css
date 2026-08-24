@@ -883,3 +883,10 @@ body{font-family:var(--body)}
 .admin-page .admin-notes{margin-top:18px;padding:15px}
 .admin-page .admin-alerts{margin-bottom:16px;padding:12px 14px}
 @media(max-width:760px){.admin-page .admin-panel>.admin-heading{padding:18px 16px;margin-bottom:10px}.admin-page .admin-stats{margin:10px 0 15px}.admin-page .admin-section{margin-top:12px;padding-top:12px}.admin-page .admin-day-column{padding:10px}.admin-page .booking-detail-body{padding:15px 13px}}
+
+/* Remove cramped admin dividers */
+.admin-page .admin-section-heading{border-bottom:0!important;padding-bottom:6px}
+.admin-page .admin-section{border-top:0!important}
+.admin-page .admin-shell-header:after{display:none}
+.admin-page .admin-day-column{border:0;box-shadow:0 8px 20px #7040a00b}
+@media(max-width:760px){.admin-page .admin-section-heading{padding-bottom:4px}}
