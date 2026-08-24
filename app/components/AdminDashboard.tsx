@@ -46,7 +46,12 @@ async function createManageUrl(bookingId: string) {
   if (!supabase) return null;
   const token = crypto.randomUUID();
   const manageTokenHash = await hashManageToken(token);
-  const { error } = await supabase.from("bookings").update({ manageTokenHash }).eq("id", bookingId);
+  const { data: bookingData, error: readError } = await supabase.from("bookings").select("manageTokenHash, manageTokenHashes").eq("id", bookingId).single();
+  if (readError) return null;
+  const existingHashes = Array.isArray(bookingData?.manageTokenHashes) ? bookingData.manageTokenHashes : [];
+  const legacyHash = bookingData?.manageTokenHash ? [bookingData.manageTokenHash] : [];
+  const hashes = Array.from(new Set([...existingHashes, ...legacyHash, manageTokenHash]));
+  const { error } = await supabase.from("bookings").update({ manageTokenHashes: hashes }).eq("id", bookingId);
   return error ? null : `${window.location.origin}/booking/manage?token=${encodeURIComponent(token)}`;
 }
 
