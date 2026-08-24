@@ -1,18 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const destinations = [
+  ["/services", "Services", "01"],
+  ["/portfolio", "Portfolio", "02"],
+  ["#find-us", "Find us", "03"],
+  ["https://www.instagram.com/the_precious_set/", "Instagram", "04"],
+];
+
 export default function Home() {
-  return <main className="minimal-home">
-    <section className="minimal-hero page-shell">
-      <div className="minimal-hero-copy"><p className="eyebrow">The Precious Set · Leeds</p><h1>Pretty<br /><em>precise.</em></h1><Link className="minimal-book" href="/book">Book <span>↗</span></Link></div>
-      <div className="minimal-hero-image"><Image src="/portfolio/03.jpeg" alt="French tip nail set by The Precious Set" width={700} height={850} priority /><div className="minimal-hero-logo"><Image src="/precious-set-logo.png" alt="The Precious Set" width={180} height={140} /></div></div>
+  return <main className="gallery-home">
+    <section className="gallery-hero page-shell">
+      <div className="gallery-intro"><p className="eyebrow">The Precious Set</p><h1>Leeds<br /><em>nails.</em></h1><Link className="gallery-book" href="/book">Book <span>↗</span></Link></div>
+      <div className="gallery-main-image"><Image src="/portfolio/03.jpeg" alt="French tip nail set by The Precious Set" width={900} height={1100} priority /><div className="gallery-logo"><Image src="/precious-set-logo.png" alt="The Precious Set" width={210} height={160} /></div></div>
+      <div className="gallery-side-images"><Image src="/portfolio/08.jpeg" alt="Detailed nail set by The Precious Set" width={450} height={560} /><Image src="/portfolio/13.jpeg" alt="Pink nail set by The Precious Set" width={450} height={560} /></div>
     </section>
-    <section className="minimal-links page-shell" aria-label="Explore The Precious Set">
-      <Link href="/services"><span>01</span><strong>Services</strong><i>↗</i></Link>
-      <Link href="/portfolio"><span>02</span><strong>Portfolio</strong><i>↗</i></Link>
-      <div className="minimal-location"><span>03</span><strong>Find us</strong><b>Leeds</b></div>
-      <a href="https://www.instagram.com/the_precious_set/" target="_blank" rel="noreferrer"><span>04</span><strong>Socials</strong><i>↗</i></a>
-    </section>
-    <section className="minimal-images page-shell" aria-label="Portfolio preview"><Image src="/portfolio/08.jpeg" alt="The Precious Set portfolio" width={500} height={620} /><Image src="/portfolio/13.jpeg" alt="The Precious Set portfolio" width={500} height={620} /><Image src="/portfolio/03.jpeg" alt="The Precious Set portfolio" width={500} height={620} /></section>
+    <nav className="gallery-nav page-shell" aria-label="Explore The Precious Set">{destinations.map(([href, label, number]) => href.startsWith("http") ? <a href={href} target="_blank" rel="noreferrer" key={label}><span>{number}</span>{label}<b>↗</b></a> : <Link href={href} key={label}><span>{number}</span>{label}<b>{label === "Find us" ? "Leeds" : "↗"}</b></Link>)}</nav>
+    <section className="gallery-find page-shell" id="find-us"><p className="eyebrow">Find us</p><strong>Leeds</strong><a href="https://www.instagram.com/the_precious_set/" target="_blank" rel="noreferrer">@the_precious_set ↗</a></section>
   </main>;
 }
