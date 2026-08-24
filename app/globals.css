@@ -792,3 +792,9 @@ body{font-family:var(--body)}
 @media(max-width:760px){.creative-details{grid-template-columns:1fr 1fr;padding-bottom:90px}.creative-location-panel{min-height:165px;padding:17px 15px}.creative-location-panel strong{font-size:1.3rem}}
 
 .location-panel-label{color:var(--deep);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+
+/* Location matches the other information panels */
+.creative-location-panel{min-height:210px;margin:0;padding:24px 22px;border-radius:4px;background:var(--lavender);box-shadow:0 8px 20px #7040a00c}
+.creative-location-panel strong{display:block;margin-top:auto;font-family:Georgia,"Times New Roman",serif;font-size:1.8rem;font-weight:400}
+.creative-location-panel p{margin:8px 0 16px;color:#756a7b;font-size:.78rem}
+@media(max-width:760px){.creative-location-panel{min-height:165px;padding:17px 15px}.creative-location-panel strong{font-size:1.3rem}}
