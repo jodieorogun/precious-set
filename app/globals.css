@@ -753,3 +753,13 @@ body{font-family:var(--body)}
 @media(max-width:760px){
  .creative-hero{gap:45px}.creative-hero-gallery{padding-top:0}.creative-hero-gallery-heading{display:block}.creative-hero-gallery-heading h2{margin-top:18px}.hero-mini-gallery{height:395px}.hero-mini-gallery>div{height:340px;width:38%;border-width:5px}.hero-mini-gallery>div:nth-child(1){left:0}.hero-mini-gallery>div:nth-child(2){left:31%}.hero-mini-gallery>div:nth-child(3){right:0}
 }
+
+/* Quiet Georgia-led wordmark */
+:root{--display:Georgia,"Times New Roman",serif;--script:Georgia,"Times New Roman",serif}
+.creative-hero h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.085em;line-height:.82}
+.creative-hero h1 em{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:400;font-size:1em;letter-spacing:-.09em}
+.creative-hero-gallery{padding-top:0}
+.hero-mini-gallery{height:560px}
+.hero-mini-gallery>div{width:38%;height:510px}
+.hero-mini-gallery>div:nth-child(1){left:0}.hero-mini-gallery>div:nth-child(2){left:31%}.hero-mini-gallery>div:nth-child(3){right:0}
+@media(max-width:760px){.hero-mini-gallery{height:440px}.hero-mini-gallery>div{width:39%;height:385px}.hero-mini-gallery>div:nth-child(1){left:0}.hero-mini-gallery>div:nth-child(2){left:30%}.hero-mini-gallery>div:nth-child(3){right:0}}
