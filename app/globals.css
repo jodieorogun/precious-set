@@ -708,3 +708,8 @@ body{font-family:var(--body)}
 .creative-logo{background:transparent;border:0;box-shadow:none;backdrop-filter:none}
 .creative-logo img{mix-blend-mode:multiply;filter:contrast(1.05)}
 @media(max-width:760px){.creative-logo{background:transparent;border:0;box-shadow:none}}
+
+/* Oval logo mark */
+.creative-logo{width:245px;height:155px;background:#fff;border-radius:50%;overflow:hidden;box-shadow:0 14px 28px #25133222}
+.creative-logo img{width:235px;height:auto}
+@media(max-width:760px){.creative-logo{width:150px;height:98px}.creative-logo img{width:145px}}
