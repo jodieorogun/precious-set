@@ -936,3 +936,9 @@ body{font-family:var(--body)}
 .booking-inspo-editor { display: grid; gap: 0.65rem; margin-top: 0.75rem; }
 .booking-inspo-editor input[type="file"] { width: 100%; padding: 0.65rem; border: 1px solid var(--line); border-radius: 0.9rem; background: var(--paper); }
 .booking-inspo-editor .button { justify-self: start; }
+
+.manage-inspo-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; }
+.manage-inspo-item { display: grid; gap: 0.4rem; }
+.manage-inspo-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 0.9rem; }
+.manage-inspo-item button { border: 0; background: transparent; color: var(--muted); cursor: pointer; font: inherit; font-size: 0.8rem; }
+@media (max-width: 520px) { .manage-inspo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
