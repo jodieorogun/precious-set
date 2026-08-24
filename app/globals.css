@@ -932,3 +932,7 @@ body{font-family:var(--body)}
 .inspo-upload small, .manage-inspo-card p { color: var(--muted); }
 .manage-inspo-card { display: grid; gap: 0.8rem; margin: 1.25rem 0; padding: 1.1rem; border: 1px solid var(--line); border-radius: 1.2rem; background: var(--wash); }
 .manage-inspo-card .button { justify-self: start; }
+
+.booking-inspo-editor { display: grid; gap: 0.65rem; margin-top: 0.75rem; }
+.booking-inspo-editor input[type="file"] { width: 100%; padding: 0.65rem; border: 1px solid var(--line); border-radius: 0.9rem; background: var(--paper); }
+.booking-inspo-editor .button { justify-self: start; }
