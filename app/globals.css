@@ -696,3 +696,10 @@ body{font-family:var(--body)}
 .minimal-location,.location-card{background:var(--lavender)!important}
 .social-card{background:#efe1fb!important}
 .admin-stat:nth-child(2),.admin-stat:nth-child(3),.admin-stat:nth-child(4){background:var(--lavender)!important}
+
+/* Wordmark-style display type */
+:root{--script:"Snell Roundhand","Savoye LET","Apple Chancery","URW Chancery L","Brush Script MT",cursive}
+.creative-hero h1{font-family:var(--display);font-weight:500}
+.creative-hero h1 em{font-family:var(--script);font-size:1.17em;font-weight:400;letter-spacing:-.045em;line-height:.55;color:var(--deep);text-transform:none}
+.creative-portfolio-heading h2 em{font-family:var(--script);font-weight:400;letter-spacing:-.04em}
+@media(max-width:760px){.creative-hero h1 em{font-size:1.12em}}
