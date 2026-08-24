@@ -45,7 +45,7 @@ export function AdminDashboard() {
 
   if (isLoading) return <section className="admin-panel">Loading dashboard…</section>;
   if (!supabase) return <section className="admin-panel"><p className="form-error">Add Supabase environment variables to use the dashboard.</p></section>;
-  if (!sessionEmail) return <section className="admin-panel admin-login"><p className="eyebrow">Private studio area</p><h2>Admin sign in</h2><p>Sign in with your Supabase Auth email and password.</p><form className="admin-login-form" onSubmit={handleLogin}><label>Email<input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label><label>Password<input required type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>{errorMessage && <p className="form-error" role="alert">{errorMessage}</p>}<button className="button button-dark submit-button" disabled={isSubmitting}>{isSubmitting ? "Signing in…" : "Sign in ↗"}</button></form></section>;
+  if (!sessionEmail) return <section className="admin-panel admin-login"><form className="admin-login-form" onSubmit={handleLogin}><label>Email<input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label><label>Password<input required type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>{errorMessage && <p className="form-error" role="alert">{errorMessage}</p>}<button className="button button-dark submit-button" disabled={isSubmitting}>{isSubmitting ? "Signing in…" : "Sign in ↗"}</button></form></section>;
 
   const pendingBookings = bookings.filter((booking) => booking.status === "pending");
   const upcomingBookings = bookings.filter(isUpcoming);
