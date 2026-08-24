@@ -4,7 +4,6 @@ import Link from "next/link";
 const studioDetails = [
   ["01", "Services", "Gel-X · Gel · Refills.", "/services", "Choose a service"],
   ["02", "Portfolio", "A closer look at real sets.", "/portfolio", "Look closer"],
-  ["03", "Find us", "Leeds, United Kingdom.", "#find-us", "Studio details"],
   ["04", "Instagram", "New sets, studio updates.", "https://www.instagram.com/the_precious_set/", "Instagram"],
 ];
 
