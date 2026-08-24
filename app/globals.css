@@ -897,3 +897,12 @@ body{font-family:var(--body)}
 .admin-shell-links .admin-sign-out{min-height:24px;padding:3px 8px;background:transparent;color:var(--muted);font-size:.68rem;box-shadow:none}
 .admin-shell-links .admin-sign-out:hover{color:var(--deep);background:transparent}
 @media(max-width:760px){.admin-shell-links{gap:3px}.admin-shell-links .back-to-site{min-height:30px;padding:6px 11px;font-size:.68rem}.admin-shell-links .admin-sign-out{font-size:.64rem}}
+
+/* My notes editor */
+.admin-page .admin-notes{display:grid;gap:12px;padding:18px 20px;background:#faf7fd!important;border:1px solid var(--line);border-radius:16px}
+.admin-page .admin-notes-heading{min-height:28px;align-items:center}
+.admin-page .admin-notes-heading .text-button{padding:5px 10px;border:0;border-radius:999px;background:#fff;color:var(--deep);font-size:.7rem;box-shadow:0 4px 10px #7040a00b}
+.admin-page .admin-notes textarea{display:block;width:100%;min-height:125px;box-sizing:border-box;resize:vertical;padding:13px 14px;border-radius:12px!important;background:#fff!important;line-height:1.5}
+.admin-page .admin-notes-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.admin-page .admin-notes-actions .button{width:auto;min-width:110px;justify-content:center;margin:0}
+@media(max-width:760px){.admin-page .admin-notes{padding:15px}.admin-page .admin-notes-actions{display:flex}.admin-page .admin-notes-actions .button{flex:1;min-width:0}}
