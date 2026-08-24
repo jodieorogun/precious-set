@@ -38,8 +38,8 @@ create policy "Active services are publicly readable" on public.services for sel
 create policy "Anyone can request a pending booking" on public.bookings for insert with check (status = 'pending');
 
 insert into public.services (name, description, "startingPrice", "durationMinutes", "isActive") values
-  ('Gel-X Extensions', 'Full set of Gel-X extensions. Painting is included; allow an additional 20 minutes. Nail art and charms add approximately 30 minutes. Add-ons are £5–£12.', 30.00, 60, true),
-  ('Gel on Natural Nails', 'Gel application on natural nails. Painting is included; allow an additional 20 minutes. Nail art and charms add approximately 30 minutes. Add-ons are £5–£12.', 20.00, 60, true),
+  ('Gel-X Extensions', 'Full set of Gel-X extensions. Painting included in the appointment.', 30.00, 90, true),
+  ('Gel on Natural Nails', 'Gel application on natural nails. Painting included in the appointment.', 20.00, 90, true),
   ('Refills', 'Refresh and rebalance your existing set. Appointment time to be confirmed.', 20.00, 90, true),
   ('Removal / Soak Off', 'Removal of Gel-X or gel.', 10.00, 30, true),
   ('French', 'Legacy service; use as an add-on.', 10.00, 20, false),
