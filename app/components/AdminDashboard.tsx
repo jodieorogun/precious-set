@@ -7,7 +7,7 @@ import { supabase } from "../../lib/supabaseClient";
 import { OpeningHoursSettings } from "./OpeningHoursSettings";
 import { TimeOffSettings } from "./TimeOffSettings";
 
-type Booking = { id: string; createdAt: string; inspoImageUrl: string | null; string; changeRequestDate: string | null; changeRequestStartTime: string | null; changeRequestEndTime: string | null; changeRequestStatus: string | null; customerUserId: string | null; customerName: string; customerPhone: string; serviceId: string; bookingDate: string; startTime: string; endTime: string; notes: string | null; addOns: string[] | null; addonPrice: number | null; status: string; services: { name: string; startingPrice: number } | null; };
+type Booking = { id: string; createdAt: string; inspoImageUrl: string | null; changeRequestDate: string | null; changeRequestStartTime: string | null; changeRequestEndTime: string | null; changeRequestStatus: string | null; customerUserId: string | null; customerName: string; customerPhone: string; serviceId: string; bookingDate: string; startTime: string; endTime: string; notes: string | null; addOns: string[] | null; addonPrice: number | null; status: string; services: { name: string; startingPrice: number } | null; };
 type Service = { id: string; name: string; durationMinutes: number; startingPrice: number; };
 type BookingStatus = "confirmed" | "declined" | "cancelled" | "completed";
 type WhatsAppKind = "confirmed" | "modify" | "approvedChange";
