@@ -703,3 +703,8 @@ body{font-family:var(--body)}
 .creative-hero h1 em{font-family:var(--script);font-size:1.17em;font-weight:400;letter-spacing:-.045em;line-height:.55;color:var(--deep);text-transform:none}
 .creative-portfolio-heading h2 em{font-family:var(--script);font-weight:400;letter-spacing:-.04em}
 @media(max-width:760px){.creative-hero h1 em{font-size:1.12em}}
+
+/* Let the logo sit directly on the image */
+.creative-logo{background:transparent;border:0;box-shadow:none;backdrop-filter:none}
+.creative-logo img{mix-blend-mode:multiply;filter:contrast(1.05)}
+@media(max-width:760px){.creative-logo{background:transparent;border:0;box-shadow:none}}
