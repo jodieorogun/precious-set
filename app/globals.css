@@ -976,7 +976,7 @@ html,body{overflow-x:hidden}
  .menu-toggle{display:flex!important;position:relative;z-index:102;min-height:38px;padding:8px 0}
  .site-header-new nav{display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:101;width:100%;max-width:100%;box-sizing:border-box}
  .site-header-new nav.is-open{display:flex;visibility:visible;opacity:1;pointer-events:auto}
- .site-header-new nav a{display:block;min-height:48px}
+ .site-header-new nav a,.site-header-new nav a:not(.nav-cta){display:block;min-height:48px}
  .creative-hero-gallery{display:block;overflow:visible}
  .hero-mini-gallery{display:block;width:100%;height:400px;overflow:visible}
  .hero-mini-gallery>div{width:39%!important;height:350px!important}
