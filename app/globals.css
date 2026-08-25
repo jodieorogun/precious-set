@@ -949,3 +949,11 @@ body{font-family:var(--body)}
 .admin-inspo-item small { color: var(--muted); font-size: 0.75rem; }
 .admin-inspo-item button { border: 0; background: transparent; color: var(--muted); cursor: pointer; font: inherit; font-size: 0.8rem; }
 @media (max-width: 520px) { .admin-inspo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.admin-inspo-gallery { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); align-items:start; gap: 1rem; }
+.admin-inspo-item { min-width: 0; padding: 0.6rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--paper); }
+.admin-inspo-item img { margin: 0; }
+.admin-inspo-item small { display: block; padding-top: 0.15rem; }
+.admin-inspo-item button { justify-self: start; padding: 0; }
+.booking-inspo-editor { width: 100%; max-width: 520px; padding: 0.9rem; border: 1px dashed var(--line); border-radius: 1rem; background: var(--wash); }
+@media (max-width: 520px) { .admin-inspo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
