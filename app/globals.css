@@ -957,3 +957,7 @@ body{font-family:var(--body)}
 .admin-inspo-item button { justify-self: start; padding: 0; }
 .booking-inspo-editor { width: 100%; max-width: 520px; padding: 0.9rem; border: 1px dashed var(--line); border-radius: 1rem; background: var(--wash); }
 @media (max-width: 520px) { .admin-inspo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.admin-inspo-gallery { grid-template-columns: repeat(3, minmax(0, 150px)); justify-content: start; }
+.manage-inspo-gallery { grid-template-columns: repeat(3, minmax(0, 150px)); justify-content: start; }
+@media (max-width: 520px) { .admin-inspo-gallery, .manage-inspo-gallery { grid-template-columns: repeat(2, minmax(0, 130px)); } }
